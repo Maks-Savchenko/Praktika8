@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <string.h>
+
+long long factorial(int n) {
+    if (n == 0 || n == 1) return 1;
+    return n * factorial(n - 1);
+}
+
+int main() {
+    char word[15];
+    int letter_counts[256] = {0};
+    long long denominator = 1;
+    int length;
+
+    printf("Введіть слово: ");
+    scanf("%s", word);
+
+    length = strlen(word);
+
+    for (int i = 0; i < length; i++) {
+        letter_counts[(int)word[i]]++;
+    }
+
+    for (int i = 0; i < 256; i++) {
+        if (letter_counts[i] > 1) {
+            denominator *= factorial(letter_counts[i]);
+        }
+    }
+
+    long long result = factorial(length) / denominator;
+    printf("Кількість можливих анаграм: %lld\n", result);
+
+    return 0;
+}
